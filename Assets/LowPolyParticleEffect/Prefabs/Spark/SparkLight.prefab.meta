@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0d467dff05a4f9f49a99e2da0f4bfa5e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Spark/SparkLight.prefab
+  uploadId: 379934

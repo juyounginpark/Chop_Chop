@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b66be57e06a21254f9484f8b75f76876
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Smoke/SmokeBurst.prefab
+  uploadId: 379934

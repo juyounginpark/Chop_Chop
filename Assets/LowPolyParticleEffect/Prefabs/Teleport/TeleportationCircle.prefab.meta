@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ce52c44c7ea3bd84386a906aba3b5676
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Teleport/TeleportationCircle.prefab
+  uploadId: 379934

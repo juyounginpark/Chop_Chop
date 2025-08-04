@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ea2c7bac6be8ce842be8fa3cc9c97f75
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Energy/EnergyChargeFlame.prefab
+  uploadId: 379934

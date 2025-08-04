@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d16ececbc8fd5d54fad9d2a9e6030950
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Teleport/TeleportationCircleWithRisingRing.prefab
+  uploadId: 379934

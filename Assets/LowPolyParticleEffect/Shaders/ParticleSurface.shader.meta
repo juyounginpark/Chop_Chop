@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 235d03db6c858b94d960c63af78ab224
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Shaders/ParticleSurface.shader
+  uploadId: 379934

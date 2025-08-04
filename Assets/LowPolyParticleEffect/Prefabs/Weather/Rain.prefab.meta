@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 761b257c00dbb2e4bb0fd8119e3639a6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Weather/Rain.prefab
+  uploadId: 379934

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: eb7f884e49b00bd42bedb6e87592189f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175018
+  packageName: Low Poly FX
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyParticleEffect/Prefabs/Explosion/ExplosionSmall.prefab
+  uploadId: 379934
