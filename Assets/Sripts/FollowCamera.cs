@@ -1,22 +1,47 @@
 using UnityEngine;
 
-public class FollowCamera : MonoBehaviour
+public class FixedTPSCamera : MonoBehaviour
 {
-    public Transform target;        // 사과 오브젝트
-    public Vector3 offset = new Vector3(0, 5, -5);  // 높이 5, 뒤로 5
-    public float followSpeed = 5f;
+    public Transform target;                     // 플레이어
+    public Vector3 offset = new Vector3(0f, 4f, -6f); // 고정 오프셋 (위 + 뒤)
+    public float smoothSpeed = 10f;              // 따라가는 속도
+    public float collisionBuffer = 0.2f;         // 충돌시 여유 거리
+    private float defaultDistance;
+
+    int collisionMask;
+    private Quaternion fixedRotation;            // 고정 회전값
+
+    void Start()
+    {
+        if (target == null)
+        {
+            Debug.LogError("target 지정 안됨");
+            enabled = false;
+            return;
+        }
+
+        defaultDistance = offset.magnitude;
+        collisionMask = ~LayerMask.GetMask("Player"); // Player 레이어 제외 충돌 체크
+
+        // 처음 시작할 때 카메라 회전을 고정시켜 저장
+        fixedRotation = transform.rotation;
+    }
 
     void LateUpdate()
     {
-        if (target == null) return;
-
-        // 사과 위치 기준으로 카메라 위치 설정
+        Vector3 direction = offset.normalized;
         Vector3 desiredPosition = target.position + offset;
 
-        // 부드럽게 따라가기
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, followSpeed * Time.deltaTime);
+        if (Physics.Raycast(target.position, direction, out RaycastHit hit, defaultDistance, collisionMask))
+        {
+            float hitDist = Mathf.Clamp(hit.distance - collisionBuffer, 0.5f, defaultDistance);
+            Vector3 adjustedOffset = direction * hitDist;
+            desiredPosition = target.position + adjustedOffset;
+        }
 
-        // 항상 사과를 바라보게
-        transform.LookAt(target);
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+
+        // 카메라 회전 고정
+        transform.rotation = fixedRotation;
     }
 }
