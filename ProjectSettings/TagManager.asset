@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Changer
   - Knife
+  - Fire
   layers:
   - Default
   - TransparentFX

@@ -3,13 +3,18 @@ using UnityEngine;
 public class FollowXZCameraWithCollision : MonoBehaviour
 {
     public float fixedY = 5100f;
-    public float followSpeed = 0;
-    public float cameraDistance = 0;
-    public float XDistance = 0;
+    public float followSpeed = 5f;
+    public float cameraDistance = 1000f;
+    public float XDistance = 0f;
     public LayerMask collisionMask;
 
     private Transform target;
     private Vector3 currentVelocity;
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
 
     void Start()
     {
@@ -25,7 +30,6 @@ public class FollowXZCameraWithCollision : MonoBehaviour
         if (target == null) return;
 
         Vector3 targetXZ = new Vector3(target.position.x - XDistance, fixedY, target.position.z);
-
         Vector3 backDir = -transform.forward;
         backDir.y = 0f;
         backDir.Normalize();
@@ -40,11 +44,5 @@ public class FollowXZCameraWithCollision : MonoBehaviour
 
         transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref currentVelocity, 1f / followSpeed);
         transform.rotation = Quaternion.Euler(80f, 0f, 0f);
-    }
-
-    
-    public void SetTarget(Transform newTarget)
-    {
-        target = newTarget;
     }
 }
