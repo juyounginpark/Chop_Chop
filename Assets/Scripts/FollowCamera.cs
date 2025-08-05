@@ -3,9 +3,9 @@ using UnityEngine;
 public class FollowXZCameraWithCollision : MonoBehaviour
 {
     public float fixedY = 5100f;
-    public float followSpeed = 5f;
-    public float cameraDistance = 1000f;
-    public float XDistance = 200f;
+    public float followSpeed = 0;
+    public float cameraDistance = 0;
+    public float XDistance = 0;
     public LayerMask collisionMask;
 
     private Transform target;
