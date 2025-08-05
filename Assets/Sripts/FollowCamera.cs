@@ -1,47 +1,51 @@
 using UnityEngine;
 
-public class FixedTPSCamera : MonoBehaviour
+public class FollowXZCameraWithCollision : MonoBehaviour
 {
-    public Transform target;                     // 플레이어
-    public Vector3 offset = new Vector3(0f, 4f, -6f); // 고정 오프셋 (위 + 뒤)
-    public float smoothSpeed = 10f;              // 따라가는 속도
-    public float collisionBuffer = 0.2f;         // 충돌시 여유 거리
-    private float defaultDistance;
+    public float fixedY = 5100f;
+    public float followSpeed = 5f;
+    public float cameraDistance = 1000f;
+    public float XDistance = 200f;
+    public LayerMask collisionMask;
 
-    int collisionMask;
-    private Quaternion fixedRotation;            // 고정 회전값
+    private Transform target;
+    private Vector3 currentVelocity;
 
     void Start()
     {
-        if (target == null)
-        {
-            Debug.LogError("target 지정 안됨");
-            enabled = false;
-            return;
-        }
-
-        defaultDistance = offset.magnitude;
-        collisionMask = ~LayerMask.GetMask("Player"); // Player 레이어 제외 충돌 체크
-
-        // 처음 시작할 때 카메라 회전을 고정시켜 저장
-        fixedRotation = transform.rotation;
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+            target = playerObj.transform;
+        else
+            Debug.LogWarning("Player 태그를 가진 오브젝트를 찾을 수 없습니다.");
     }
 
     void LateUpdate()
     {
-        Vector3 direction = offset.normalized;
-        Vector3 desiredPosition = target.position + offset;
+        if (target == null) return;
 
-        if (Physics.Raycast(target.position, direction, out RaycastHit hit, defaultDistance, collisionMask))
+        // 타겟 위치 보정 (X축으로 offset 주고 Y는 고정)
+        Vector3 targetXZ = new Vector3(target.position.x - XDistance, fixedY, target.position.z);
+
+        // 카메라의 뒤쪽 방향 (XZ 평면)
+        Vector3 backDir = -transform.forward;
+        backDir.y = 0f;
+        backDir.Normalize();
+
+        // 원하는 위치 계산
+        Vector3 desiredPos = targetXZ + backDir * cameraDistance;
+
+        // 충돌 감지
+        if (Physics.Linecast(targetXZ, desiredPos, out RaycastHit hit, collisionMask))
         {
-            float hitDist = Mathf.Clamp(hit.distance - collisionBuffer, 0.5f, defaultDistance);
-            Vector3 adjustedOffset = direction * hitDist;
-            desiredPosition = target.position + adjustedOffset;
+            desiredPos = hit.point + hit.normal * 5f;
+            desiredPos.y = fixedY;
         }
 
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+        // 부드러운 이동
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref currentVelocity, 1f / followSpeed);
 
-        // 카메라 회전 고정
-        transform.rotation = fixedRotation;
+        // 고정된 회전
+        transform.rotation = Quaternion.Euler(80f, 0f, 0f);
     }
 }
