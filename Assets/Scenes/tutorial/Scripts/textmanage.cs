@@ -10,7 +10,6 @@ public class TutorialtextManager : MonoBehaviour
 
     public Button prevButton;
     public Button nextButton;
-    public TextMeshProUGUI nextButtonText;
 
     void Start()
     {
@@ -25,11 +24,6 @@ public class TutorialtextManager : MonoBehaviour
             tutorialText.text = tutorialMessages[currentIndex];
 
         prevButton.interactable = currentIndex > 0;
-
-        if (currentIndex == tutorialMessages.Length - 1)
-            nextButtonText.text = "닫기";
-        else
-            nextButtonText.text = "다음";
     }
 
     public void OnNextButtonClick()
@@ -37,7 +31,6 @@ public class TutorialtextManager : MonoBehaviour
         if (currentIndex < tutorialMessages.Length - 1)
         {
             currentIndex++;
-            Debug.Log(currentIndex);
             ShowCurrentMessage();
         }
         else
