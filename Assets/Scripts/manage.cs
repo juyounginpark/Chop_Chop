@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> Players;
+    public GameObject gameClearUI; // 🎯 UI 패널 연결
     private int currentPlayerIndex = 0;
 
     private void Start()
@@ -19,17 +20,27 @@ public class GameManager : MonoBehaviour
         FollowXZCameraWithCollision cam = Camera.main.GetComponent<FollowXZCameraWithCollision>();
         if (cam != null)
             cam.SetTarget(Players[currentPlayerIndex].transform);
+
+        if (gameClearUI != null)
+            gameClearUI.SetActive(false); // UI 꺼놓기
     }
 
     public void SwitchToNextPlayer()
     {
         Players[currentPlayerIndex].SetActive(false);
-        Players[currentPlayerIndex].tag = "Untagged"; // 태그 제거
+        Players[currentPlayerIndex].tag = "Untagged";
 
-        currentPlayerIndex = (currentPlayerIndex + 1) % Players.Count;
+        currentPlayerIndex++;
+
+        // 🎯 마지막 플레이어까지 끝났으면 클리어 처리
+        if (currentPlayerIndex >= Players.Count)
+        {
+            GameClear();
+            return;
+        }
 
         Players[currentPlayerIndex].SetActive(true);
-        Players[currentPlayerIndex].tag = "Player"; // 태그 지정
+        Players[currentPlayerIndex].tag = "Player";
 
         StartCoroutine(DelayCameraFollow());
     }
@@ -44,5 +55,14 @@ public class GameManager : MonoBehaviour
             cam.SetTarget(Players[currentPlayerIndex].transform);
             cam.JumpToTarget();
         }
+    }
+
+    private void GameClear()
+    {
+        Debug.Log("게임 클리어!");
+        Time.timeScale = 0f;
+
+        if (gameClearUI != null)
+            gameClearUI.SetActive(true);
     }
 }

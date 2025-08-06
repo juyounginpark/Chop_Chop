@@ -1,21 +1,24 @@
 using UnityEngine;
 
-public class PotTrigger : MonoBehaviour
+public class pot : MonoBehaviour
 {
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GameManager gm = FindObjectOfType<GameManager>();
-            if (gm != null)
-            {
-                gm.SwitchToNextPlayer();
-                Debug.Log("다음 야채로 전환");
-            }
-            else
-            {
-                Debug.Log("GameManager 없음");
-            }
+            // 현재 플레이어를 비활성화
+            other.gameObject.SetActive(false);
+
+            // 다음 플레이어로 전환
+            if (gameManager != null)
+                gameManager.SwitchToNextPlayer();
         }
     }
 }

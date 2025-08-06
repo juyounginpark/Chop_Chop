@@ -10,8 +10,10 @@ public class ShapeSwitcher : MonoBehaviour
 
     private Dictionary<string, string[]> interactionMap = new Dictionary<string, string[]>
     {
-        { "Cucumber", new string[] { "Knife" } },
-        { "Carrot", new string[] { "Knife", "Slicer" } },
+        { "SongE", new string[] { "Water" } },
+        { "WashedSongE", new string[] { "Knife" } },
+        { "Ganjang", new string[] { "Micro"} },
+        { "HotGanjang", new string[] { "Water"} },
         { "Meat", new string[] { "Fire" } },
         { "Tomato", new string[] { "Knife" } }
     };
