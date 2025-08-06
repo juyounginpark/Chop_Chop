@@ -31,7 +31,7 @@ public class ShapeSwitcher : MonoBehaviour
                 if (other.CompareTag(tool))
                 {
                     // 위치 및 회전 동기화 + Y축 튀어오름
-                    Vector3 spawnPosition = wholeObject.transform.position + Vector3.up * 50f;
+                    Vector3 spawnPosition = wholeObject.transform.position + Vector3.up * 20f;
                     slicedObject.transform.position = spawnPosition;
                     slicedObject.transform.rotation = wholeObject.transform.rotation;
 
