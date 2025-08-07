@@ -4,17 +4,48 @@ using TMPro;
 
 public class CustomerOrderManager : MonoBehaviour
 {
-    public GameObject orderPanel;          // 주문 창
-    public TextMeshProUGUI dialogueText;   // 손님 대사
-    public TextMeshProUGUI orderText;      
-    public Button startButton;           
+    [Header("UI References")]
+    public GameObject orderPanel;
+    public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI orderText;
+    public Button startButton;
+    public TextMeshProUGUI dayText;
+
+    [Header("Game State")]
+    public int currentDay = 1; // 외부에서 증가 가능
 
     private bool orderShown = false;
+
+    private string[] dialogueLines = {
+        "Excuse me, I'm gonna order!",
+        "You're busy today~",
+        "Here's my order!",
+    };
+
+    private string[] orderLines = {
+        "Egg fry",
+        "Just cool soy sauce.",
+        "Sliced tomato",
+        "Meatball",
+        "Tomato soup",
+        "Mushroom bulgogi"
+    };
 
     void Start()
     {
         orderPanel.SetActive(false);
-        dialogueText.text = "안녕하세요! 주문 좀 받을 수 있을까요?";
+        orderShown = false;
+
+        dayText.text = $"Day {currentDay}";
+
+        // 손님 대사 무작위 선택
+        dialogueText.text = dialogueLines[Random.Range(0, dialogueLines.Length)];
+
+        // 현재 Day에 따라 레시피 수 제한
+        int availableRecipes = Mathf.Clamp(currentDay * 3, 1, orderLines.Length);
+        string order = orderLines[Random.Range(0, availableRecipes)];
+        orderText.text = order;
+
         startButton.onClick.AddListener(OnStartClicked);
     }
 
@@ -29,12 +60,12 @@ public class CustomerOrderManager : MonoBehaviour
     void ShowOrderPanel()
     {
         orderPanel.SetActive(true);
-        orderText.text = "아메리카노 한 잔 주세요.";
         orderShown = true;
     }
 
     void OnStartClicked()
     {
-        Debug.Log("게임 시작!");
+        Debug.Log($"Day {currentDay} 시작!");
+        // 게임 시작 로직 또는 다음 씬 로드
     }
 }
