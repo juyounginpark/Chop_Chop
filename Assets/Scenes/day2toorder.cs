@@ -19,7 +19,7 @@ public class Titleday2SceneManager : MonoBehaviour
         dayText.text = $"Day {newDay}";
 
         // 1초 기다렸다가 씬 이동
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSecondsRealtime(4f);
 
         SceneLoader.sceneToLoad = "order"; // 다음 씬 이름 설정
         SceneManager.LoadScene("loading"); // 로딩 씬으로 전환
