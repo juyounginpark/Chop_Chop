@@ -8,8 +8,8 @@ public class AppleController : MonoBehaviour
     public Transform cam;
 
     private Rigidbody rb;
-    private float jumpCooldown = 10f;
-    private float lastJumpTime = -10f; // 시작 시 바로 점프 가능
+    private float jumpCooldown = 5f;
+    private float lastJumpTime = -5; // 시작 시 바로 점프 가능
 
     void Start()
     {
@@ -43,7 +43,6 @@ public class AppleController : MonoBehaviour
         Vector3 moveDir = (camForward * v + camRight * h).normalized;
         rb.AddForce(moveDir * moveForce);
 
-        // --- 점프 처리 (10초 쿨다운) ---
         if (Keyboard.current.spaceKey.wasPressedThisFrame && Time.time - lastJumpTime >= jumpCooldown)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
