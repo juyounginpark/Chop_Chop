@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CustomerOrderManager : MonoBehaviour
 {
@@ -12,9 +13,10 @@ public class CustomerOrderManager : MonoBehaviour
     public TextMeshProUGUI dayText;
 
     [Header("Game State")]
-    public static int currentDay = 1; // 외부에서 증가 가능
+    public static int currentDay = 1;
 
     private bool orderShown = false;
+    private bool isFirstTime => PlayerPrefs.GetInt("HasSeenTutorial", 0) == 0;
 
     private string[] dialogueLines = {
         "Excuse me, \nI'm gonna order!",
@@ -24,12 +26,10 @@ public class CustomerOrderManager : MonoBehaviour
 
     private string[] orderLines = {
         "Egg fry",
-        "Just cool soy sauce.",
-        "Sliced tomato",
-        "Meatball",
-        "Tomato soup",
         "Mushroom bulgogi"
     };
+
+    private string selectedOrder;
 
     void Start()
     {
@@ -37,14 +37,11 @@ public class CustomerOrderManager : MonoBehaviour
         orderShown = false;
 
         dayText.text = $"<Day {currentDay}>";
-
-        // 손님 대사 무작위 선택
         dialogueText.text = dialogueLines[Random.Range(0, dialogueLines.Length)];
 
-        // 현재 Day에 따라 레시피 수 제한
-        int availableRecipes = Mathf.Clamp(currentDay * 3, 1, orderLines.Length);
-        string order = orderLines[Random.Range(0, availableRecipes)];
-        orderText.text = order;
+        int availableRecipes = Mathf.Clamp(currentDay, 1, orderLines.Length);
+        selectedOrder = orderLines[Random.Range(0, availableRecipes)];
+        orderText.text = selectedOrder;
 
         startButton.onClick.AddListener(OnStartClicked);
     }
@@ -62,10 +59,44 @@ public class CustomerOrderManager : MonoBehaviour
         orderPanel.SetActive(true);
         orderShown = true;
     }
-
+    public void ResetTutorialFlag()
+    {
+        PlayerPrefs.DeleteKey("HasSeenTutorial");
+        PlayerPrefs.Save();
+    }
     void OnStartClicked()
     {
         Debug.Log($"Day {currentDay} 시작!");
-        // 게임 시작 로직 또는 다음 씬 로드
+
+        if (isFirstTime)
+        {
+            // 튜토리얼을 본 것으로 표시
+            PlayerPrefs.SetInt("HasSeenTutorial", 1);
+            PlayerPrefs.Save();
+
+            // 튜토리얼 씬으로 이동
+            SceneManager.LoadScene("tutorial");
+        }
+        else
+        {
+            // 주문에 따라 해당 씬으로 이동
+            string sceneName = GetSceneNameForOrder(selectedOrder);
+            SceneManager.LoadScene(sceneName);
+        }
     }
+
+    string GetSceneNameForOrder(string order)
+    {
+        switch (order)
+        {
+            case "Egg fry":
+                return "eggfry";
+            case "Mushroom bulgogi":
+                return "ingame";
+            default:
+                return "DefaultScene";
+        }
+    }
+
+   
 }

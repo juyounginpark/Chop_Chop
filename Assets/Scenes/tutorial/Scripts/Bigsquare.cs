@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // 씬 전환을 위해 추가
 
 public class Bigsquare : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Bigsquare : MonoBehaviour
     public Button closeButton;
 
     private int currentPageIndex = 0;
-    private bool reachedLastPage = false; 
+    private bool reachedLastPage = false;
 
     void Start()
     {
@@ -20,18 +21,16 @@ public class Bigsquare : MonoBehaviour
         closeButton.onClick.AddListener(CloseTutor);
     }
 
-    void ShowPage(int index)
+   void ShowPage(int index)
     {
-        for (int i = 0; i < tutorialPages.Length; i++)
-            tutorialPages[i].SetActive(i == index);
+    for (int i = 0; i < tutorialPages.Length; i++)
+        tutorialPages[i].SetActive(i == index);
 
-        prevButton.interactable = index > 0;
-        nextButton.interactable = index < tutorialPages.Length - 1;
+    prevButton.interactable = index > 0;
+    nextButton.interactable = index < tutorialPages.Length - 1;
 
-        if (index == tutorialPages.Length - 1)
-            reachedLastPage = true;
-            
-        closeButton.gameObject.SetActive(reachedLastPage);
+    bool isLastPage = index == tutorialPages.Length - 1;
+    closeButton.gameObject.SetActive(isLastPage);
     }
 
     void NextPage()
@@ -54,6 +53,11 @@ public class Bigsquare : MonoBehaviour
 
     void CloseTutor()
     {
-        this.gameObject.SetActive(false);
+        Debug.Log("튜토리얼 종료 후 다음 씬으로 이동");
+
+        // 원하는 씬 이름으로 변경하세요!
+        string nextSceneName = "eggfry"; 
+
+        SceneManager.LoadScene(nextSceneName);
     }
 }

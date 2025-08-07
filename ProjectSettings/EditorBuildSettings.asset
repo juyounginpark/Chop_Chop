@@ -29,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/day2.unity
     guid: 217aac371d27a674d9ca3f0207c72c70
+  - enabled: 1
+    path: Assets/Scenes/eggfry.unity
+    guid: 0e69d4f96c176554a9293639229ee5e4
+  - enabled: 1
+    path: Assets/Scenes/ingametutorial.unity
+    guid: 3f459f3893d957f4d8f9c8b46c85eda9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
