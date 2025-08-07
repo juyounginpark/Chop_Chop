@@ -15,7 +15,8 @@ public class ShapeSwitcher : MonoBehaviour
         { "Ganjang", new string[] { "Micro"} },
         { "HotGanjang", new string[] { "Water"} },
         { "Meat", new string[] { "Fire" } },
-        { "Tomato", new string[] { "Knife" } }
+        { "Tomato", new string[] { "Knife" } },
+        { "Egg", new string[] { "Fire" } }
     };
 
     private void Start()
