@@ -5,7 +5,7 @@ public class TitleclearSceneManager : MonoBehaviour
 {
     public void LoadGame()
     {
-        SceneLoader.sceneToLoad = "day2"; // 다음 씬 지정
+        SceneLoader.sceneToLoad = "Day"; // 다음 씬 지정
         SceneManager.LoadScene("loading"); // 로딩씬으로 이동
     }
-}
+} 
