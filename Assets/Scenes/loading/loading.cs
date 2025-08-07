@@ -5,11 +5,12 @@ using System.Collections;
 
 public class SceneLoader : MonoBehaviour
 {
-    public Slider loadingBar; 
+    public Slider loadingBar;
+    public static string sceneToLoad; // 외부에서 설정
 
     void Start()
     {
-        StartCoroutine(LoadSceneAsync("GameScene")); 
+        StartCoroutine(LoadSceneAsync(sceneToLoad));
     }
 
     IEnumerator LoadSceneAsync(string sceneName)

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ComicManager : MonoBehaviour
@@ -37,11 +38,14 @@ public class ComicManager : MonoBehaviour
         if (currentIndex < comicPanels.Length - 1)
         {
             currentIndex++;
-            comicPanels[currentIndex].SetActive(true); 
+            comicPanels[currentIndex].SetActive(true);
             UpdateButtons();
         }
         else
-            gameObject.SetActive(false); 
+        {
+            SceneLoader.sceneToLoad = "order";
+            SceneManager.LoadScene("loading");
+        }
     }
 
     void UpdateButtons()
