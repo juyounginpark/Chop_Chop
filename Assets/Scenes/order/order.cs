@@ -17,7 +17,7 @@ public class CustomerOrderManager : MonoBehaviour
     private bool orderShown = false;
 
     private string[] dialogueLines = {
-        "Excuse me, I'm gonna order!",
+        "Excuse me, \nI'm gonna order!",
         "You're busy today~",
         "Here's my order!",
     };
@@ -36,7 +36,7 @@ public class CustomerOrderManager : MonoBehaviour
         orderPanel.SetActive(false);
         orderShown = false;
 
-        dayText.text = $"Day {currentDay}";
+        dayText.text = $"<Day {currentDay}>";
 
         // 손님 대사 무작위 선택
         dialogueText.text = dialogueLines[Random.Range(0, dialogueLines.Length)];
