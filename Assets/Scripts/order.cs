@@ -12,7 +12,7 @@ public class CustomerOrderManager : MonoBehaviour
     public TextMeshProUGUI dayText;
 
     [Header("Game State")]
-    public int currentDay = 1; // 외부에서 증가 가능
+    public static int currentDay = 1; // 외부에서 증가 가능
 
     private bool orderShown = false;
 
