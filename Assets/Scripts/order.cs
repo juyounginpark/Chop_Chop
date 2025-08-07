@@ -11,6 +11,8 @@ public class CustomerOrderManager : MonoBehaviour
     public TextMeshProUGUI orderText;
     public Button startButton;
     public TextMeshProUGUI dayText;
+    public TextMeshProUGUI fameText;
+    public TextMeshProUGUI revenueText;
 
     [Header("Game State")]
     public static int currentDay = 1;
@@ -24,25 +26,37 @@ public class CustomerOrderManager : MonoBehaviour
         "Here's my order!",
     };
 
-    private string[] orderLines = {
-        "Egg fry",
-        "Mushroom bulgogi"
-    };
-
     private string selectedOrder;
+    private int fame = 0;
+    private int revenue = 0;
 
     void Start()
     {
         orderPanel.SetActive(false);
         orderShown = false;
 
+        // Set day text
         dayText.text = $"<Day {currentDay}>";
+
+        // Set fame & revenue based on day
+        fame = (currentDay - 1) * 10;
+        revenue = (currentDay - 1) * 20;
+
+        fameText.text = $"Fame: {fame:D2}";
+        revenueText.text = $"Revenue: {revenue:D2}";
+
+        // Dialogue
         dialogueText.text = dialogueLines[Random.Range(0, dialogueLines.Length)];
 
-        int availableRecipes = Mathf.Clamp(currentDay, 1, orderLines.Length);
-        selectedOrder = orderLines[Random.Range(0, availableRecipes)];
+        // Recipe selection based on day
+        if (currentDay == 1)
+            selectedOrder = "Egg fry";
+        else
+            selectedOrder = "Mushroom bulgogi";
+
         orderText.text = selectedOrder;
 
+        // Button click
         startButton.onClick.AddListener(OnStartClicked);
     }
 
@@ -59,27 +73,25 @@ public class CustomerOrderManager : MonoBehaviour
         orderPanel.SetActive(true);
         orderShown = true;
     }
+
     public void ResetTutorialFlag()
     {
         PlayerPrefs.DeleteKey("HasSeenTutorial");
         PlayerPrefs.Save();
     }
+
     void OnStartClicked()
     {
         Debug.Log($"Day {currentDay} 시작!");
 
         if (isFirstTime)
         {
-            // 튜토리얼을 본 것으로 표시
             PlayerPrefs.SetInt("HasSeenTutorial", 1);
             PlayerPrefs.Save();
-
-            // 튜토리얼 씬으로 이동
             SceneManager.LoadScene("tutorial");
         }
         else
         {
-            // 주문에 따라 해당 씬으로 이동
             string sceneName = GetSceneNameForOrder(selectedOrder);
             SceneManager.LoadScene(sceneName);
         }
@@ -97,6 +109,4 @@ public class CustomerOrderManager : MonoBehaviour
                 return "DefaultScene";
         }
     }
-
-   
 }

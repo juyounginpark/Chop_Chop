@@ -1835,6 +1835,8 @@ MonoBehaviour:
   orderText: {fileID: 1647194311}
   startButton: {fileID: 94801026}
   dayText: {fileID: 9045224}
+  fameText: {fileID: 1837713214}
+  revenueText: {fileID: 915933703}
 --- !u!1 &1744791790
 GameObject:
   m_ObjectHideFlags: 0
